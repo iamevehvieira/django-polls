@@ -9,7 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index (request):
-    return HttpResponse('Olá... seja bem vindo à enquete')
+    return render(request, 'home.html')
 
 def sobre (request):
     return HttpResponse('Olá, este é um app de enquete')
