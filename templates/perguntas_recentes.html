@@ -1,10 +1,10 @@
-{% extends '_layout1.html' %} <!-- herda tudo que já tem em _layout1.html -->
+{% extends '_basico.html' %} <!-- herda tudo que já tem em _layout1.html -->
 
 {% block head_title %}
     Mega Enquetes
 {% endblock %}
 
-{% block content %} <!-- substitui o bloco content em _layout1.html -->
+{% block main %} <!-- substitui o bloco content em _layout1.html -->
     <h1>Nossas últimas Enquetes</h1>
     {% for question in latest_question_list %}
         <article>
