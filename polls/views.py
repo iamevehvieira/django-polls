@@ -1,4 +1,5 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
+
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -37,3 +38,17 @@ class QuestionCreateView(CreateView):
     template_name = 'polls/question_form.html'
     fields = ('question_text', 'pub_date', )
     success_url = reverse_lazy('polls_list')
+def get_context_data(self, **kwargs):
+    context = super(QuestionCreateView, self).get_context_data(**kwargs)
+    context['form_title'] = 'Criando uma pergunta'
+    return context
+
+class QuestionUpdateView(UpdateView):
+    model = Question
+    template_name = 'polls/question_form.html'
+    fields = ('question_text', 'pub_date', )
+    success_url = reverse_lazy('polls_list')
+def get_context_data(self, **kwargs):
+    context = super(QuestionUpdateView, self).get_context_data(**kwargs)
+    context['form_title'] = 'Editando a pergunta'
+    return context
