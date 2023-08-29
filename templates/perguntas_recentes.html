@@ -1,15 +1,19 @@
 {% extends '_basico.html' %} <!-- herda tudo que já tem em _layout1.html -->
 
 {% block head_title %}
-    Mega Enquetes
+Mega Enquetes
 {% endblock %}
 
 {% block main %} <!-- substitui o bloco content em _layout1.html -->
-    <h1>Nossas últimas Enquetes</h1>
-    {% for question in latest_question_list %}
-        <article>
-            <h2>Em: {{ question.pub_date|date:"d / m / Y" }}</h2>
-            <p>{{ question.question_text }}</p>
-        </article>
-    {% endfor %}
+<a href="{% url 'poll_add' %}" class="btn btn-lg btn-primary font-weight-bold">
+    + Pergunta
+</a>
+<h1>Nossas últimas Enquetes</h1>
+{% for question in latest_question_list %}
+<article>
+    <h2>Em: {{ question.pub_date|date:"d / m / Y" }}</h2>
+    <p>{{ question.question_text }}</p>
+</article>
+{% endfor %}
 {% endblock %} <!-- fecha o bloco content -->
+
