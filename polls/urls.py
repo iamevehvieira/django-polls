@@ -8,4 +8,5 @@ urlpatterns = [
     path('perguntas/list', views.ultimas_perguntas, name='polls_list'),
     path('pergunta/add', views.QuestionCreateView.as_view(), name="poll_add"),
     path('pergunta/<int:pk>/edit', views.QuestionUpdateView.as_view(), name="poll_edit"),
+    path('pergunta/<int:pk>/delete', views.QuestionDeleteView.as_view(), name="poll_delete"),
 ] 
