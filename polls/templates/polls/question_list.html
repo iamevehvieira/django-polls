@@ -1,0 +1,22 @@
+{% extends '_layout1.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Listagem de Perguntas</h5>
+    </div>
+    <div class="card-body">
+        <a href="{% url 'poll_add' %}" class="btn btn-primary mb-3">
+            Cadastrar nova pergunta
+        </a>
+        <ul>
+            {% for question in questions %}
+            <li>
+                <a href="{% url 'poll_show' pk=question.id %}">
+                    {{ question.question_text }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

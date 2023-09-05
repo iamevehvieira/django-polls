@@ -20,6 +20,9 @@ Mega Enquetes
 <a href="{% url 'poll_delete' pk=question.id %}" class="link-secondary">
     Excluir
 </a>
+<a href="{% url 'poll_show' pk=question.id %}" class="link-secondary">
+    Ver
+</a>
     
 {% endfor %}
 {% endblock %} <!-- fecha o bloco content -->
