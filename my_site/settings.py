@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os # Acrescentar no topo do arquivo, na primeira linha
+from django.contrib.messages import constants as messages
 
 from pathlib import Path
 
@@ -140,3 +141,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Inclua no final do arquivo as duas configurações abaixo
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MESSAGE_TAGS = {
+messages.DEBUG: 'alert-secondary',
+messages.INFO: 'alert-info',
+messages.SUCCESS: 'alert-success',
+messages.WARNING: 'alert-warning',
+messages.ERROR: 'alert-danger',
+}
