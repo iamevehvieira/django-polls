@@ -63,9 +63,9 @@ class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('polls_all')
     success_message = 'Pergunta excluída com sucesso.'
-def form_valid(self, request, *args, **kwargs):
-    messages.success(self.request, self.success_message)
-    return super(QuestionDeleteView, self).form_valid(request, *args, **kwargs)
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(QuestionDeleteView, self).form_valid(request, *args, **kwargs)
 
 class QuestionDetailView(DetailView):
     model = Question
