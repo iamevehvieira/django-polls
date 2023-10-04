@@ -92,7 +92,7 @@ DATABASES = {
                'USER': 'root',
                'PASSWORD': '',
                'HOST': 'localhost',
-               'PORT': '3307',
+               'PORT': '3306',
      }
 }
 
@@ -138,8 +138,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# Inclua no final do arquivo as duas configurações abaixo
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
@@ -155,3 +153,6 @@ LOGIN_REDIRECT_URL = '/admin'
 LOGOUT_REDIRECT_URL = '/admin'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+MEDIA_URL = '/media/' # Caminho para servir os arquivos de mídia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files/') # Armazenamento dos arquivos

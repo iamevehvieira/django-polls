@@ -27,6 +27,7 @@ bg-white border-bottom shadow-sm">
         <a class="p-2 text-dark" href="{% url 'signup' %}">Cadastrar</a>
         <a class="p-2 text-dark" href="{% url 'login' %}">Acessar</a>
         {% else %}
+        <a class="p-2 text-dark" href="{% url 'account_edit' pk=user.pk %}">Minha conta</a>
         <a class="p-2 text-dark" href="{% url 'logout' %}">Sair</a>
         {% endif %}
 
