@@ -46,7 +46,7 @@ class QuestionCreateView(CreateView):
     model = Question
     template_name = 'polls/question_form.html'
     fields = ('question_text', 'pub_date', )
-    success_url = reverse_lazy('polls_list')
+    success_url = reverse_lazy('polls_all')
 
     def get_context_data(self, **kwargs):
         context = super(QuestionCreateView, self).get_context_data(**kwargs)
@@ -56,7 +56,7 @@ class QuestionCreateView(CreateView):
     
 class ChoiceCreateView(CreateView):
     model = Choice
-    template_name = 'poll/choice_form.html'
+    template_name = 'polls/choice_form.html'
     fields = ('choice_text', )
     success_message = 'Alternativa registrada com sucesso!'
 
