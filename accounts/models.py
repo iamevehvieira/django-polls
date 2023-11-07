@@ -8,6 +8,6 @@ class CustomUser(AbstractUser): # herda o model User base padrão do Django
     cpf = models.CharField("CPF", max_length=11, null=True, blank=True)
     imagem = models.FileField(
     upload_to='images',
-    default=None,
+    blank=True,
     null=True
 )
