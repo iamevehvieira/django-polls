@@ -5,6 +5,11 @@
         <h5 class="card-title">Pergunta</h5>
     </div>
     <div class="card-body">
+        {% if question.author %}
+        <span>Autor: {{ question.author.username }}</span>
+        {% else %}
+        <span>Autor: Desconhecido</span>
+        {% endif %} <br>
         <p>
             {{ question.question_text }}
             <a href="{% url 'poll_edit' pk=question.id %}" class="link-secondary">

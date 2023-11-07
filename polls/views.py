@@ -42,17 +42,23 @@ def ultimas_perguntas(request):
 
     return render(request, 'perguntas_recentes.html', context)
     
-class QuestionCreateView(CreateView):
+class QuestionCreateView(LoginRequiredMixin, CreateView):
     model = Question
     template_name = 'polls/question_form.html'
     fields = ('question_text', 'pub_date', )
     success_url = reverse_lazy('polls_all')
+    success_message = 'Pergunta criada com sucesso!'
 
     def get_context_data(self, **kwargs):
         context = super(QuestionCreateView, self).get_context_data(**kwargs)
         context['form_title'] = 'Criando uma pergunta'
 
         return context
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, self.success_message)
+        return super(QuestionCreateView, self).form_valid(form)
     
 class ChoiceCreateView(CreateView):
     model = Choice
