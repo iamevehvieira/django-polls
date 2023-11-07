@@ -20,6 +20,24 @@
             </a>
         </p>
         <p>Data de publicação: {{ question.pub_date }}</p>
+        {%if total_votes %}
+            <p>Total de votos: {{ total_votes }}</p>
+        {%endif %}
+        <form action="{% url 'poll_vote' question_id=question.id %}" method="post">
+            {%csrf_token %}
+            <fieldset>
+                <legend><h1>{{question.question_text }}</h1></legend>
+                {% for choice in question.question_set.all %}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value=" {{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text</label><br>
+                {% empty %}
+                    <h5>Não há alternativas cadastradas</h5>
+                {% endfor %}
+            </fieldset>
+            {% if question.choice_set.all %}
+            
+
+        </form>
     </div>
 </div>
 {% endblock %}

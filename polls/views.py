@@ -5,11 +5,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView, TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum
 
 # Create your views here.
 from polls.models import Question, Choice
@@ -152,6 +153,13 @@ class QuestionDetailView(DetailView):
     template_name = 'polls/question_detail.html'
     context_object_name = 'question'
 
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        votes = Choice.objects.filter(question=context['question']).aggregate(total=Sum('votes')) or 0
+        context['total_votes'] = votes.get('total')
+
+        return context
+
 class QuestionListView(ListView):
     model = Question
     template_name = 'polls/question_list.html'
@@ -161,3 +169,19 @@ class QuestionListView(ListView):
 
 class SobreTemplateView(TemplateView):
     template_name = 'polls/sobre.html'
+
+def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == 'POST':
+        try:
+            selected_choice = question.choice_set.get(pk=request.POST["choice"])
+        except (KeyError, Choice.DoesNotExist):
+            messages.error(request, 'Selecione uma alternativa para votar')
+        else:
+            selected_choice.votes += 1
+            selected_choice.save()
+            messages.success(request, 'Seu voto foi registrado com sucesso!')
+            return redirect(reverse_lazy("poll_show", args=(question.id,)))
+        
+    context = {'question': question}
+    return render(request, 'polls/question_detail.html', context)
