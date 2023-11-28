@@ -1,0 +1,23 @@
+{% extends '_layout1.html' %}
+
+{% block content %}
+<h1>{{ question.question_text }}</h1>
+
+    <ul class="list-unstyled">
+    {% for choice in votes %}
+        <li>
+            {{ choice.text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}
+            <div class="progress" style="height: 30px;">
+                <div
+                    class="progress-bar h6"
+                    role="progressbar"
+                    style="width: {{ choice.percentage|floatformat:0 }}%; height: 30px;"
+                    aria-valuenow="{{ choice.percentage|floatformat:0 }}"
+                    aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'poll_show' pk=question.id %}">Votar novamente?</a>
+    {% endblock %}
