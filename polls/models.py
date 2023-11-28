@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -26,3 +27,18 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+    
+    def save(self, user, *args, **kwargs):
+        question_user = QuestionUser.objects.filter(user=user, question=self.question).count()
+        if question_user > 0:
+            raise ValidationError('Não é permitido votar mais de uma vez')
+        
+        question_user = QuestionUser.objects.create(user=user, question=self.question)
+        question_user.save()
+
+        super().save(*args, **kwargs)
+    
+# Model para criar relacionamento N:N - mantém o voto anônimo, mas registra que votou
+class QuestionUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
