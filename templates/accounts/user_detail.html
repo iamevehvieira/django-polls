@@ -1,0 +1,25 @@
+{% extends '_layout1.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Meu perfil</h5>
+    </div>
+    <div class="card-body">
+        <p>
+            {# exibe somente o email, mas pode listar demais informações do usuário #}
+        <h5>E-mail: {{ user.email }}</h5>
+        </p>
+        <h5>Enquetes que você votou</h5>
+        <ol>
+            {# percorre a lista de objetos QuestionUser e pega texto para exibir #}
+            {% for item in questions_voted %}
+            <li>{{ item.question.question_text }}</li>
+            {% empty %}
+            <li>
+                <h5>Você não votou em nenhuma enquete</h5>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+{% endblock %}
